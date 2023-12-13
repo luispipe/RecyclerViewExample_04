@@ -5,6 +5,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,12 +17,38 @@ public class MainActivity extends AppCompatActivity {
 
     List<Item> list=new ArrayList<>();
 
+    TextInputLayout name,color,city,value;
+
+    Button register;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        register= findViewById(R.id.btnRegister);
+        name=findViewById(R.id.tiName);
+        color=findViewById(R.id.tiColor);
+        city=findViewById(R.id.tiCity);
+        value= findViewById(R.id.tiValue);
+
         listConstructor();
+
+        register.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Item item= new Item(name.getEditText().getText().toString(),
+                                    city.getEditText().getText().toString(),
+                                    color.getEditText().getText().toString(),
+                                    Integer.parseInt(value.getEditText().getText().toString()));
+                list.add(item);
+                init();
+                name.getEditText().setText("");
+                color.getEditText().setText("");
+                city.getEditText().setText("");
+                value.getEditText().setText("");
+            }
+        });
     }
 
 
